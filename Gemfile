@@ -49,6 +49,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Use ERB formatter for HTML beautification [https://github.com/threedaymonk/htmlbeautifier]
+  gem "htmlbeautifier"
+
+  # Use unit testing [https://github.com/rspec/rspec-rails]
+  gem "rspec-rails"
+
+  # Use controller testing [https://github.com/rails/rails-controller-testing]
+  gem "rails-controller-testing"
 end
 
 group :development do
