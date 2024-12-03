@@ -53,6 +53,9 @@ group :development, :test do
   # Use ERB formatter for HTML beautification [https://github.com/threedaymonk/htmlbeautifier]
   gem "htmlbeautifier"
 
+  # Use PostgreSQL as the database for Active Record [https://github.com/ged/ruby-pg]
+  gem "pg"
+
   # Use unit testing [https://github.com/rspec/rspec-rails]
   gem "rspec-rails"
 
