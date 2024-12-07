@@ -56,6 +56,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: tom96da
+          POSTGRES_PASSWORD: dbpass
+          POSTGRES_DB: tom96da_test
+        options: >-
+          --health-cmd "pg_isready -U tom96da"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     # services:
     #  redis:
     #    image: redis
@@ -64,7 +79,7 @@ jobs:
     #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips sqlite3
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips libpq-dev
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -88,6 +103,14 @@ jobs:
 
       - name: Install dependencies
         run: bundle install
+
+      - name: Set up database
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://tom96da:dbpass@localhost:5432/tom96da_test
 
       - name: Run tests
         env:
