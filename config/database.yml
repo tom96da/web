@@ -33,3 +33,12 @@ production:
   primary:
     <<: *default
     database: tom96da
+cable:
+  <<: *default
+  database: tom96da_cable
+queue:
+  <<: *default
+  database: tom96da_queue
+cache:
+  <<: *default
+  database: tom96da_cache
